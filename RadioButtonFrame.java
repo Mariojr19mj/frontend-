@@ -1,149 +1,85 @@
-// Fig. 12.19: RadioButtonFrame.java
-// Creating radio buttons using ButtonGroup and JRadioButton.
-// import é a importacao. os verde sao os componentes
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
+import java.awt.FlowLayout; // Importa o layout de fluxo, que organiza os componentes em linha
+import java.awt.Font; // Importa a classe Font, usada para definir fontes
+import java.awt.event.ItemEvent; // Importa o ItemListener, interface para ouvir mudanças em itens
+import java.awt.event.ItemListener; // Importa a classe ItemEvent, que representa eventos de itens
+import javax.swing.ButtonGroup; // Importa a classe JFrame, que cria uma janela para o aplicativo gráfico
+import javax.swing.JFrame; // Importa a classe JTextField, usada para criar um campo de texto
+import javax.swing.JRadioButton; // Importa a classe JRadioButton, usada para criar botões de rádio
+import javax.swing.JTextField; // Importa a classe ButtonGroup, usada para agrupar botões de rádio
 
-public class RadioButtonFrame extends JFrame //declaracao de classe. extends significa que esta erdando. o radiobuttonfram esta erdando tudo que estiver no jframe
+public class RadioButtonFrame extends JFrame  // Define a classe RadioButtonFrame que herda de JFrame
 {
-   private JTextField textField; // privat significa ser exclusivo dentro de classe. jtextfield é uma varivel.
-   private Font plainFont; // font for plain text
-   private Font boldFont; // font for bold text
-   private Font italicFont; // font for italic text
-   private Font boldItalicFont; // font for bold and italic text
+   private JTextField textField; // Declara um campo de texto usado para exibir mudanças de fonte
+   private Font plainFont; // Declara uma fonte para texto normal
+   private Font boldFont; // Declara uma fonte para texto em negrito
+   private Font italicFont; // Declara uma fonte para texto em itálico
+   private Font boldItalicFont; // Declara uma fonte para texto em negrito e itálico
+   private JRadioButton plainJRadioButton; // Declara o botão de rádio para texto normal
+   private JRadioButton boldJRadioButton; // Declara o botão de rádio para texto em negrito
+   private JRadioButton italicJRadioButton; // Declara o botão de rádio para texto em itálico
+   private JRadioButton boldItalicJRadioButton; // Declara o botão de rádio para texto em negrito e itálico
+   private ButtonGroup radioGroup; // Declara um grupo de botões para agrupar os botões de rádio
 
-   private Color blackColor; // Color for plain text
-   private Color redColor; // Color for bold text
-   private Color bluecColor; // Color for italic text
-   private Color yellowColor;
-
-
-   private JRadioButton blackJRadioButton; // selects plain text
-   private JRadioButton redJRadioButton; // selects bold text
-   private JRadioButton blueJRadioButton; // selects italic text
-   private JRadioButton yellowJRadioButton; // bold and italic
-
-   private JRadioButton plainJRadioButton; // selects plain text
-   private JRadioButton boldJRadioButton; // selects bold text
-   private JRadioButton italicJRadioButton; // selects italic text
-   private JRadioButton boldItalicJRadioButton; // bold and italic
-   private ButtonGroup radioGroup; // buttongroup to hold radio buttons
-   private  ButtonGroup coloRadioGroup;
-
-   // RadioButtonFrame constructor adds JRadioButtons to JFrame
-   public RadioButtonFrame() // declaracao do construtor
-   {//abertura do bloco de codigo do construtor
-      super("RadioButton Test");// super é o texto principal na aba de cima da janela
-      setLayout(new FlowLayout()); // setlayout e um metodo dentro da classe jframe, o set vaid definir o tipo de layout, é a saida das camadas com um novo objeto que é o flowlayout
-
-      textField = new JTextField("Watch the font style change", 25);// declaracao do textfield, com o new criamos o obejto, com parametros de 
-      add(textField);
-      
-      // create radio buttons
-      plainJRadioButton = new JRadioButton("Plain", true);
-      boldJRadioButton = new JRadioButton("Bold", false);
-      italicJRadioButton = new JRadioButton("Italic", false);
-      boldItalicJRadioButton = new JRadioButton("Bold/Italic", false);
-      add(plainJRadioButton); // add plain button to JFrame
-      add(boldJRadioButton); // add bold button to JFrame
-      add(italicJRadioButton); // add italic button to JFrame
-      add(boldItalicJRadioButton); // add bold and italic button
-
-      // create logical relationship between JRadioButtons
-      radioGroup = new ButtonGroup(); // create ButtonGroup
-      radioGroup.add(plainJRadioButton); // add plain to group
-      radioGroup.add(boldJRadioButton); // add bold to group
-      radioGroup.add(italicJRadioButton); // add italic to group
-      radioGroup.add(boldItalicJRadioButton); // add bold and italic
-
-      // create font objects
-      plainFont = new Font("Serif", Font.PLAIN, 14);
-      boldFont = new Font("Serif", Font.BOLD, 14);
-      italicFont = new Font("Serif", Font.ITALIC, 14);
-      boldItalicFont = new Font("Serif", Font.BOLD + Font.ITALIC, 14);
-      textField.setFont(plainFont);
-
-      // register events for JRadioButtons
-      plainJRadioButton.addItemListener(
-         new RadioButtonHandler(plainFont));
-      boldJRadioButton.addItemListener(
-         new RadioButtonHandler(boldFont));
-      italicJRadioButton.addItemListener(
-         new RadioButtonHandler(italicFont));
-      boldItalicJRadioButton.addItemListener(
-         new RadioButtonHandler(boldItalicFont));
-
-      blackJRadioButton = new JRadioButton("Black", true);
-      redJRadioButton = new JRadioButton("Red", false);
-      blueJRadioButton = new JRadioButton("Blue", false);
-      yellowJRadioButton = new JRadioButton("Yellow", false);
-      add(blackJRadioButton); // add plain button to JFrame
-      add(redJRadioButton); // add bold button to JFrame
-      add(blueJRadioButton); // add italic button to JFrame
-      add(yellowJRadioButton); // add bold and italic button
-
-      // create logical relationship between JRadioButtons
-      coloRadioGroup = new ButtonGroup(); // create ButtonGroup
-      coloRadioGroup.add(blackJRadioButton); // add plain to group
-      coloRadioGroup.add(redJRadioButton); // add bold to group
-      coloRadioGroup.add(blueJRadioButton); // add italic to group
-      coloRadioGroup.add(yellowJRadioButton); // add bold and italic
-
-      // create font objects
-      blackColor = Color.BLACK;
-      redColor = Color.RED;
-      bluecColor = Color.BLUE;
-      yellowColor = Color.YELLOW;
-      textField.setForeground(blackColor);
-
-      // register events for JRadioButtons
-      blackJRadioButton.addItemListener(
-         new ColorRadioButtonHandler(blackColor));
-      redJRadioButton.addItemListener(
-         new ColorRadioButtonHandler(redColor));
-      blueJRadioButton.addItemListener(
-         new ColorRadioButtonHandler(bluecColor));
-      yellowJRadioButton.addItemListener(
-         new ColorRadioButtonHandler(yellowColor));
-   }  
-
-   // private inner class to handle radio button events
-   private class ColorRadioButtonHandler implements ItemListener 
+   // Construtor da classe RadioButtonFrame, que adiciona os JRadioButtons à janela JFrame
+   public RadioButtonFrame()
    {
-      private Font font; // font associated with this listener
+      super("RadioButton Test"); // Chama o construtor de JFrame com o título "RadioButton Test"
+      setLayout(new FlowLayout()); // Define o layout da janela para FlowLayout (organiza os componentes em linha)
+
+      textField = new JTextField("Watch the font style change", 25); // Cria um campo de texto com a mensagem inicial
+      add(textField); // Adiciona o campo de texto à janela JFrame
+
+      // Cria os botões de rádio para diferentes estilos de fonte
+      plainJRadioButton = new JRadioButton("Plain", true); // Cria o botão de rádio para texto normal (marcado por padrão)
+      boldJRadioButton = new JRadioButton("Bold", false); // Cria o botão de rádio para texto em negrito (não marcado por padrão)
+      italicJRadioButton = new JRadioButton("Italic", false); // Cria o botão de rádio para texto em itálico (não marcado por padrão)
+      boldItalicJRadioButton = new JRadioButton("Bold/Italic", false); // Cria o botão de rádio para texto em negrito e itálico (não marcado por padrão)
+      add(plainJRadioButton); // Adiciona o botão de rádio para texto normal à janela
+      add(boldJRadioButton); // Adiciona o botão de rádio para texto em negrito à janela
+      add(italicJRadioButton); // Adiciona o botão de rádio para texto em itálico à janela
+      add(boldItalicJRadioButton); // Adiciona o botão de rádio para texto em negrito e itálico à janela
+
+      // Cria um grupo lógico entre os JRadioButtons
+      radioGroup = new ButtonGroup(); // Cria um novo ButtonGroup
+      radioGroup.add(plainJRadioButton); // Adiciona o botão de texto normal ao grupo
+      radioGroup.add(boldJRadioButton); // Adiciona o botão de texto em negrito ao grupo
+      radioGroup.add(italicJRadioButton); // Adiciona o botão de texto em itálico ao grupo
+      radioGroup.add(boldItalicJRadioButton); // Adiciona o botão de texto em negrito e itálico ao grupo
+
+      // Cria objetos Font para os diferentes estilos de texto
+      plainFont = new Font("Serif", Font.PLAIN, 14); // Cria a fonte normal com tamanho 14
+      boldFont = new Font("Serif", Font.BOLD, 14); // Cria a fonte em negrito com tamanho 14
+      italicFont = new Font("Serif", Font.ITALIC, 14); // Cria a fonte em itálico com tamanho 14
+      boldItalicFont = new Font("Serif", Font.BOLD + Font.ITALIC, 14); // Cria a fonte em negrito e itálico com tamanho 14
+      textField.setFont(plainFont); // Define a fonte do campo de texto como a fonte normal
+
+      // Registra os eventos dos JRadioButtons
+      plainJRadioButton.addItemListener(
+         new RadioButtonHandler(plainFont)); // Registra um ItemListener para o botão de texto normal
+      boldJRadioButton.addItemListener(
+         new RadioButtonHandler(boldFont)); // Registra um ItemListener para o botão de texto em negrito
+      italicJRadioButton.addItemListener(
+         new RadioButtonHandler(italicFont)); // Registra um ItemListener para o botão de texto em itálico
+      boldItalicJRadioButton.addItemListener(
+         new RadioButtonHandler(boldItalicFont)); // Registra um ItemListener para o botão de texto em negrito e itálico
+   } 
+
+   // Classe privada interna para tratar eventos dos botões de rádio
+   private class RadioButtonHandler implements ItemListener 
+   {
+      private Font font; // Fonte associada a este listener
 
       public RadioButtonHandler(Font f)
       {
-         font = f; 
+         font = f; // Inicializa a fonte com o valor passado no construtor
       } 
    
-      // handle radio button events
+      // Trata os eventos de mudança nos botões de rádio
       @Override
       public void itemStateChanged(ItemEvent event)
       {
-         textField.setFont(font); 
+         textField.setFont(font); // Altera a fonte do campo de texto para a fonte associada
       } 
    } 
-} // end class RadioButtonFrame 
+} // Fim da classe RadioButtonFrame
 
-/**************************************************************************
- * (C) Copyright 1992-2014 by Deitel & Associates, Inc. and               *
- * Pearson Education, Inc. All Rights Reserved.                           *
- *                                                                        *
- * DISCLAIMER: The authors and publisher of this book have used their     *
- * best efforts in preparing the book. These efforts include the          *
- * development, research, and testing of the theories and programs        *
- * to determine their effectiveness. The authors and publisher make       *
- * no warranty of any kind, expressed or implied, with regard to these    *
- * programs or to the documentation contained in these books. The authors *
- * and publisher shall not be liable in any event for incidental or       *
- * consequential damages in connection with, or arising out of, the       *
- * furnishing, performance, or use of these programs.                     *
- *************************************************************************/
